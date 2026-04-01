@@ -21,7 +21,8 @@ jobs:
       - name: Install packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y make asciidoctor
+          sudo apt-get install -y make ruby-full
+          sudo gem install asciidoctor rouge
 
       - name: Build with GNU Make
         run: |

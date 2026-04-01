@@ -22,6 +22,7 @@ OBJECTS := $(SRCS_OBJS) $(ARTICLE_OBJS)
 
 # Default target
 all: $(OBJECTS)
+	@cp -pr ./assets $(BUILD_DIR)
 
 $(BUILD_DIR)/%.html: $(SRC_DIR)/%.adoc
 	@echo $@
