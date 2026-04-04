@@ -6,13 +6,13 @@ include::../../include/vars.adoc[]
 
 [.text-center]
 ****
-link:../index.html[[HOME\]] / link:./index.html[[ARTICLES\]]
+link:..[[HOME\]] / link:.[[ARTICLES\]]
 ****
 
 == Overview
 This article has the goal of uncovering the x86 archictecture, specially the 64-bit version, mainly focused the way I understand them.
 
-Although I am totally basing it on Intel manuals, some mistakes could pass. If you find one, feel free to warn me. :)
+Although I am basing it on Intel manuals, some mistakes could pass. If you find one, feel free to warn me. :)
 
 == Why x86 matters
 
@@ -21,7 +21,7 @@ Basically, x86 is a family (various processors) of **Instruction Set Architectur
 
 NOTE: An **ISA** is a model that will define how software and hardware will interact with each other, defining a group of instructions, types and memory access technique.
 
-It was developed by Intel in 1978, starting with the historical 8086 microprocessor.
+It was developed by Intel in 1978, starting with the historical **8086 microprocessor**.
 
 '''
 
@@ -93,11 +93,11 @@ A modern 64-bit x86 processor is divided into three main modes:
 |===
 
 == Registers
-One of the most confusing of x86 is that registers are not independent; they overlap.
+One of the most confusing aspects of x86 is that registers are not independent; they overlap.
 
-The same physical register can be accessed at different sizes:
+The same physical register can be accessed at different sizes, as it's showed the following example.
 
-image::../assets/rax.svg[opts=interactive,title="Example with RAX"]
+image::../assets/rax.svg[opts=interactive,title="Example with RAX",align="center"]
 
 [source,asm]
 .Example
@@ -169,7 +169,102 @@ Modifying its lower byte version will also change the physical address of it, re
 |DIL
 |===
 
-
 '''
+
+== Instructions
+
+Instructions are special-defined values the processor will decode.
+
+In **Assembly**, on this case, **GNU Assembler**, registers come together of the data size:
+
+[%header,cols="1,1,1"]
+|===
+|Size
+|Name
+|Symbol
+
+|64 bits
+|Quadword
+|`q`
+
+|32 bits
+|Long
+|`l`
+
+|16 bits
+|Word
+|`w`
+
+|8 bits
+|Byte
+|`b`
+|===
+
+[source,asm]
+.Example of usage
+----
+movq %rbx, %rax
+movb $8, %al
+----
+
+NOTE: `$` is used to pass literal values.
+
+=== Core instructions
+
+[%collapsible]
+.**Data movement**
+====
+* `mov`: Used to move data from somewhere to another place.
+
+NOTE: Although it's common using it just with registers, it's not restrict.
+
+[source,asm]
+----
+movq $40, %rax
+movq %rax, %rbx
+----
+====
+
+[%collapsible]
+.**Arithmetic**
+====
+* `add`: Used to sum a value from a source to a destination.
+
+[source,asm]
+----
+movl $50, %edi
+addl $10, %edi
+----
+
+''''
+
+* `sub`: Used to subtract a value from a source to a destination.
+
+[source,asm]
+----
+movl $20, %edi
+subl $10, %edi
+----
+
+''''
+
+* `inc`: Used to increment a value by one.
+
+[source,asm]
+----
+movl $60, %edi
+incl %edi
+----
+
+''''
+
+* `dec`: Used to decrement a value by one.
+
+[source,asm]
+----
+movl $10, %edi
+decl %edi
+----
+====
 
 include::../../include/footer.adoc[]

@@ -4,7 +4,7 @@ include::../include/vars.adoc[]
 
 [.text-center]
 ****
-link:../index.html[[HOME\]]
+link:..[[HOME\]]
 ****
 
 == Systems & Kernel development
