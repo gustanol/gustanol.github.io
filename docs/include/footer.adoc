@@ -1,5 +1,0 @@
-[.text-center,.linkcolor="#ffffff"]
-mailto:{email}[icon:at[fw,size=2x,role=gray]] {space-delimiter}
-link:{github}[icon:github[fw,size=2x,role=gray]] {space-delimiter}
-link:{linkedin}[icon:linkedin[fw,size=2x,role=gray]] {space-delimiter}
-link:{github}/gustanol.github.io[icon:code[fw,size=2x,role=gray]]
