@@ -1,0 +1,279 @@
+:root {
+	--bg: #0f1115;
+	--fg: #e6e6e6;
+	--muted: #a0a0a0;
+	--border: 0.2rem solid #22252b;
+	--accent: #8ab4f8;
+	--max-width: 72ch;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+	height: 100vh;
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+body {
+	font-family: system-ui, -apple-system, sans-serif;
+	background: var(--bg);
+	color: var(--fg);
+	line-height: 1.6;
+}
+
+h2, h3, h4 {
+ 	scroll-margin-top: 80px;
+}
+
+a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.5rem 0;
+	font-size: 0.95rem;
+	overflow-x: auto;
+}
+
+th, td {
+	border: var(--border);
+	padding: 0.5rem 0.75rem;
+	text-align: left;
+}
+
+th {
+	background: #111318;
+	font-weight: 600;
+}
+
+tr:nth-child(odd) {
+	background: #0b0d10;
+}
+
+.admonitionblock {
+  margin: 1.5rem 0;
+  border: var(--border);
+  border-radius: 1rem;
+  background: #0b0d10;
+}
+
+.admonitionblock > table,
+.admonitionblock th, 
+.admonitionblock td {
+	border: 0;
+}
+
+.admonitionblock .icon {
+	display: none;
+}
+
+.admonitionblock .content {
+	padding: 0 1rem;
+}
+
+.admonitionblock.note {
+  border-color: #4ea1ff;
+}
+
+.admonitionblock.tip {
+  border-color: #4caf50;
+}
+
+.admonitionblock.warning {
+  border-color: #ff9800;
+}
+
+.admonitionblock.caution {
+  border-color: #f44336;
+}
+
+.admonitionblock.important {
+  border-color: #9c27b0;
+}
+
+.admonitionblock::before {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: black;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+.admonitionblock.note::before {
+  content: "NOTE";
+  background: #4ea1ff;
+}
+
+.admonitionblock.tip::before {
+  content: "TIP";
+  background: #4caf50;
+}
+
+.admonitionblock.warning::before {
+  content: "WARNING";
+  background: #ff9800;
+}
+
+.admonitionblock.caution::before {
+  content: "CAUTION";
+  background: #f44336;
+}
+
+.admonitionblock.important::before {
+  content: "IMPORTANT";
+  background: #9c27b0;
+}
+
+.codeblock {
+  width: auto;
+  height: 100%;
+  border: var(--border);
+  border-radius: inherit;
+  background: #0b0d10;
+}
+
+.codeblock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  background: #111318;
+  border-bottom: var(--border);
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+}
+
+.codeblock-lang {
+  color: var(--muted);
+  text-transform: lowercase;
+}
+
+.codeblock-copy {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.codeblock-copy:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.codeblock pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+blockquote {
+  border-left: var(--border);
+  padding-left: 1rem;
+  color: var(--muted);
+}
+
+/* --- Layout Grid --- */
+.layout {
+	display: grid;
+	grid-template-columns: 2fr 6fr 2fr;
+	min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+	padding: 1.5rem 1rem;
+	border: var(--border);
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar h1 {
+	font-size: 1.2rem;
+	margin-bottom: 0.25rem;
+}
+
+.sidebar p {
+	font-size: 0.85rem;
+	color: var(--muted);
+	margin-bottom: 1rem;
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.nav a {
+	font-size: 0.95rem;
+}
+
+.external {
+	font-size: 0.85rem;
+	color: var(--muted);
+}
+
+/* --- Main --- */
+.main {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Content */
+.content {
+	padding: 0 2rem 2rem 2rem;
+	max-width: var(--max-width);
+}
+
+.content h1, .content h2, .content h3, .content h4 {
+	margin-top: 1.5rem;
+}
+
+.content p {
+	margin: 1rem 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+	.layout {
+		grid-template-columns: 1fr 3fr;
+	}
+
+	.toc {
+		display: none;
+	}
+}
+
+@media (max-width: 700px) {
+	.layout {
+		grid-template-columns: 1fr;
+	}
+
+	.sidebar {
+		position: relative;
+		height: auto;
+		border-right: none;
+		border-bottom: var(--border);
+	}
+}
