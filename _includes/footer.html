@@ -1,0 +1,24 @@
+<style>
+/* --- Footer --- */
+.footer {
+	width: 100%;
+	height: auto;
+	border-top: var(--border);
+	padding: 1rem;
+	font-size: 0.8rem;
+	color: var(--muted);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+</style>
+
+<footer class="footer">
+	<p>{{ site.time | date: '%Y' }} - {{ site.title }}</p>
+	<p>Built with
+		<a href="{{ site.github_url }}/jekyll"> Jekyll</a> + 
+		<a href="{{ site.github_url }}/asciidoctor">AsciiDoc</a>
+	</p>
+</footer>
