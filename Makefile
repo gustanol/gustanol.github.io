@@ -1,42 +1,23 @@
 # Variables
-ASCIIDOCTOR = asciidoctor
-SRC_DIR = ./docs
-BUILD_DIR = ./_site
-INCLUDES_DIR = include
-ARTICLES_DIR = articles
+BUNDLE = bundle
+JEKYLL = $(BUNDLE) exec jekyll
 
-# Includes shouldn't be converted
-ALL_SOURCES := $(shell find $(SRC_DIR) -name "*.adoc" -not -path "$(SRC_DIR)/$(INCLUDES_DIR)/*")
+.PHONY: all install build serve clean
 
-# Split the sources
-ARTICLES := $(filter $(SRC_DIR)/$(ARTICLES_DIR)/%.adoc,$(ALL_SOURCES))
-SRCS := $(filter-out $(SRC_DIR)/$(ARTICLES_DIR)/%.adoc,$(ALL_SOURCES))
+all: install build
 
-# Objects
-SRCS_OBJS := $(patsubst $(SRC_DIR)/%.adoc,$(BUILD_DIR)/%.html,$(SRCS))
-ARTICLE_OBJS := \
-  $(addprefix $(BUILD_DIR)/$(ARTICLES_DIR)/, \
-    $(notdir $(ARTICLES:.adoc=.html)))
+# Install dependencies defined in Gemfile
+install:
+	$(BUNDLE) install
 
-OBJECTS := $(SRCS_OBJS) $(ARTICLE_OBJS)
+# Build the site into the _site directory
+build:
+	$(JEKYLL) build
 
-# Default target
-all: $(OBJECTS)
-	@cp -pr ./assets $(BUILD_DIR)
+# Run a local server with auto-regeneration
+serve:
+	$(JEKYLL) serve --livereload
 
-$(BUILD_DIR)/%.html: $(SRC_DIR)/%.adoc
-	@echo $@
-	@mkdir -p $(dir $@)
-	@$(ASCIIDOCTOR) $< -o $@
-
-$(BUILD_DIR)/$(ARTICLES_DIR)/%.html:
-	@echo $@
-	@mkdir -p $(BUILD_DIR)/$(ARTICLES_DIR)
-	@src=$(shell find $(SRC_DIR)/$(ARTICLES_DIR) -name "$*.adoc"); \
-	asciidoctor $$src -o $@
-
-# Clean up
+# Clean the build directory
 clean:
-	rm -rf $(BUILD_DIR)
-
-.PHONY: all clean
+	$(JEKYLL) clean
