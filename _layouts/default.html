@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{{ page.title }} | {{ site.title }}</title>
+	<link rel="stylesheet" href="/assets/css/style.css" />
+	<link rel="stylesheet" href="/assets/css/syntax.css" />
+</head>
+
+<body>
+<div class="layout">
+	<!-- Left sidebar -->
+	{% include left-sidebar.html %}
+
+	<main class="main">
+		{% include header.html %}
+
+		<article class="content">
+			{{ content }}
+		</article>
+		{% include footer.html %}
+	</main>
+
+	<!-- Right sidebar -->
+	{% include right-sidebar.html %}
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/search.js"></script>
+<script src="/assets/js/toc.js"></script>
+<script src="/assets/js/keys.js"></script>
+<script src="/assets/js/code.js"></script>
+
+</body>
+</html>
