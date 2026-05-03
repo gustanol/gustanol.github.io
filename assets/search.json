@@ -7,7 +7,9 @@ layout: none
 {
   "title": {{ post.title | jsonify }},
   "url": {{ post.url | jsonify }},
-  "content": {{ post.content | strip_html | jsonify }}
+  "description": {{ post.description | jsonify }},
+  "tags": {{ post.tags | jsonify }},
+  "icon": {{ post.icon | jsonify }}
 }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]

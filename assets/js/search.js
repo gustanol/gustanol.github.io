@@ -1,30 +1,98 @@
-/* The JSON content will be put in here */
+/* Variable where JSON data will be placed */
 let data = [];
 
-/* Fetch the JSON file with the page information */
+/* Fetch it */
 fetch('/assets/search.json')
-  .then(res => res.json())
-  .then(json => data = json);
+	.then(res => res.json())
+	.then(json => data = json);
 
-/* The elements */
+/* Elements */
 const input = document.getElementById('search-input');
+const overlay = document.getElementById('search-overlay');
 const results = document.getElementById('search-results');
+const html = document.documentElement;
 
-/* Handle the input event */
+/* Open the overlay */
+function openSearch() {
+	overlay.classList.remove('hidden');
+}
+
+/* Close the overlay */
+function closeSearch() {
+	overlay.classList.add('hidden');
+	input.value = '';
+}
+
+/* Input event */
 input.addEventListener('input', () => {
-  const query = input.value.toLowerCase();
 
-  results.innerHTML = '';
+	/* Open the overlay element now */
+	openSearch();
 
-  /* Try to matches the search expressions */
-  const matches = data.filter(item =>
-    item.title.toLowerCase().includes(query)
-  ).slice(0, 10);
+	html.style.overflowY = 'hidden';
 
-  /* For each match, add to the result element */
-  matches.forEach(match => {
-    const el = document.createElement('div');
-    el.innerHTML = `<a href="${match.url}">${match.title}</a>`;
-    results.appendChild(el);
-  });
+	const query = input.value.toLowerCase().trim();
+
+	results.innerHTML = '';
+
+	/* Treat null cases */
+	if (!query) {
+		closeSearch();
+		html.style.overflowY = 'auto';
+		return;
+	}
+
+	/* Treat flags */
+	const isTagSearch = query.startsWith('#');
+	const cleanQuery = isTagSearch ? query.slice(1) : query;
+
+	/* Get each match */
+	const matches = data.filter(item => {
+		if (isTagSearch) {
+			return item.tags?.includes(cleanQuery);
+		}
+
+		/* Title and tags */
+		return (
+			item.title.toLowerCase().includes(cleanQuery) ||
+			item.tags?.join(' ').toLowerCase().includes(cleanQuery)
+		);
+	});
+
+	/* For each match, treat it */
+	matches.forEach(match => {
+		const li = document.createElement('li');
+
+		li.innerHTML = `
+			<a href="${match.url}">
+			<img src="${match.icon}">
+			<div>
+				<strong>${match.title}</strong><br/>
+				<div>${match.description}</div>
+				<div>${match.tags?.join(', ') || ''}</div>
+			</div>
+			</a>
+		`;
+
+		results.appendChild(li);
+	});
+});
+
+document.addEventListener('keydown', (e) => {
+
+	/* ESC close the overlay element */
+	if (e.key === 'Escape') {
+		html.style.overflowY = 'auto';
+		closeSearch();
+	}
+});
+
+document.addEventListener("click", (e) => {
+	const box = document.querySelector(".search-box");
+
+	/* Treat mouse clicks outside the element */
+	if (!box.contains(e.target) && !input.contains(e.target)) {
+		html.style.overflowY = 'auto';
+		closeSearch();
+	}
 });

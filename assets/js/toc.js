@@ -1,7 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-	/* The elements */
-	const content = document.querySelector(".content");
+
+	/* Elements */
+	const content = document.querySelector(".main-content");
 	const toc = document.getElementById("toc");
+
+	const sidebar = document.getElementById("left-sidebar");
+	const tocSidebar = document.getElementById("right-sidebar");
+
+	const menuToggle = document.getElementById("menu-toggle");
+	const tocToggle = document.getElementById("toc-toggle");
 
 	/* Do nothing if they are not there */
 	if (!content || !toc) return;
@@ -42,4 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	/* Add everything to TOC */
 	toc.appendChild(ul);
+
+	menuToggle.addEventListener("click", () => {
+		sidebar.classList.toggle("open");
+	});
+
+	tocToggle.addEventListener("click", () => {
+		tocSidebar.classList.toggle("open");
+	});
+
+	document.addEventListener("click", (e) => {
+
+		/* Treat mouse clicks outside the element */
+		if (!tocSidebar.contains(e.target) && !tocToggle.contains(e.target)) {
+			if (tocSidebar.classList.contains("open")) {
+				tocSidebar.classList.toggle("open");
+			}
+		}
+
+		if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+			if (sidebar.classList.contains("open")) {
+				sidebar.classList.toggle("open");
+			}
+		}
+	});
 });

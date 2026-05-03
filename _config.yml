@@ -18,12 +18,11 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Gustavo
+title: Gustanol
 email: gustanol.me@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  A website blog where I can share my thoughts by writing articles and doing things
+  I enjoy in a simple way
 baseurl: ""
 url: "https://gustanol.github.io"
 safe: false
@@ -37,11 +36,12 @@ plugins:
   - jekyll-asciidoc
 
 asciidoc:
-  processor: asciidoctor
   attributes:
     - sectnums=false
     - idprefix=
     - idseparator=-
+    - author=Gustavo S. Aleixos
+  processor: asciidoctor
 
 # Build settings
 theme: minima
@@ -61,4 +61,4 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - Makefile
-  - REAME.md
+  - README.md

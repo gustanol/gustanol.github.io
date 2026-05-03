@@ -1,4 +1,8 @@
 <style>
+#right-sidebar {
+	border-left: var(--border);
+}
+
 .page-info {
 	margin-bottom: 1rem;
 	font-size: 0.85rem;
@@ -76,7 +80,7 @@
 }
 </style>
 
-<aside class="sidebar">
+<aside class="sidebar" id="right-sidebar">
 	<div class="page-info">
 		{% assign words = content | number_of_words %}
 		{% assign minutes = words | divided_by: 200 %}

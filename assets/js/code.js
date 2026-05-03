@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		/* Copy button */
 		const button = document.createElement("button");
 		button.className = "codeblock-copy";
-		button.textContent = "copy";
+		button.innerHTML = '<svg class="icon"><use href="#icon-copy"></use></svg>';
 
 		button.addEventListener("click", () => {
 			navigator.clipboard.writeText(code.textContent);
 			button.textContent = "copied!";
-			setTimeout(() => (button.textContent = "copy"), 1500);
+			setTimeout(() => (button.innerHTML = '<svg class="icon"><use href="#icon-copy"></use></svg>'), 1500);
 		});
 
 		// Assemble header

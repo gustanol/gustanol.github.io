@@ -1,21 +1,22 @@
 ---
 layout: post
 permalink: /articles/x86
-tags: [x86, isa, asm, cpu]
+tags: [article, x86, isa, asm, cpu]
+icon: "/assets/icons/x86.svg"
 title:  "Exploring the x86 architecture"
 short_title: "The x86 architecture"
 description: "Exploring the main concepts behind the x86 architecture in my perspective"
 ---
 
-:author: Gustavo S. Aleixos
 :page-liquid:
+:sectnums: false
 
 '''
 
 == Overview
 This article has the goal of uncovering the x86 archictecture, specially the 64-bit version, mainly focused the *way I understand them*.
 
-Although I am basing it on Intel manuals, some mistakes could pass through me. If you find one, feel free to warn me -- my email is located at the footer of this page.
+Although I am basing it on Intel manuals, some mistakes could pass through me. If you find one, feel free to warn me.
 
 '''
 
@@ -41,12 +42,10 @@ There are a bunch of ISAs that aim being modern alternatives to x86.
 As the years were passing, many improved versions of the original 8086 emerged. Considering that's a **16-bit microprocessor**, it's not dificult to imagine it would be necessary.
 
 === 8086
-Now we know, **8086** is a 16-bit microprocessor, it is important to point its **registers** and its **buses** were limited to **16 bits**.
+Now we know **8086** is a 16-bit microprocessor, it is important to point its link:#registers[registers] and its **buses** were limited to **16 bits**.
 
 [IMPORTANT]
 ====
-A **register** is a **small memory location** the processor uses to temporarily **hold data** and **instructions** for quick access during the processing. I'll detail a bit more later.
-
 A **bus** is any **communication interface** used to **transfer data** between `components` of a system, including the processor.
 ====
 
@@ -55,12 +54,11 @@ Although being a 16-bit microprocessor, **8086** could form addresses with 20 bi
 
 Each segment register is **16-bit-sized** (`2^16^ bits = 64 KiB`). This value is **4 bits left-shifted** and added to the **16-bit offset** value to compute the physical address:
 
-[cols="1"]
-|===
-|`(Segment << 4) + Offset`
-|===
-
-Yep, it's kinda verbose...
+++++
+{% highlight mathematica %}
+(Segment << 4) + Offset
+{% endhighlight %}
+++++
 
 === 80386
 The **first 32-bit Intel processor**, released in 1985. It was a remarkable evolution, updating the **ISA** and increasing the **clock speed**.
@@ -106,9 +104,11 @@ A modern 64-bit x86 processor is divided into three main modes:
 '''
 
 == Registers
-One of the most confusing aspects of x86 is that registers are not independent; they overlap.
+One of the most confusing aspects of x86 is that registers are **not independent**; they overlap.
 
-The same physical register can be accessed at different sizes, as it's shown the following example with `RAX`.
+They are **small storage locations** inside the **CPU**. Unlike RAM, they are **extremely fast** and directly used by instructions.
+
+That's because the same physical register can be accessed with **different sizes**, as it's shown the following example with `RAX`.
 
 image::/assets/img/rax.svg[opts=interactive,align="center"]
 
@@ -131,7 +131,7 @@ Modifying its **lower byte** version will also change the **physical address** o
 `$` is used to access a literal value.
 ====
 
-=== Core registers
+=== General-purpose registers
 
 [%header,cols="2,1,1,1,1,1"]
 |===
@@ -188,61 +188,94 @@ Modifying its **lower byte** version will also change the **physical address** o
 '''
 
 == Instructions
+Instructions are special values the processor will **decode** and change its **state**. They are called **opcode**.
 
-Instructions are special-defined values the processor will decode.
+Using **assembly**, in this case, the **GNU Assembler**, instructions come together of the data size (just after it):
 
-Using **assembly**, in this case, the **GNU Assembler**, registers come together of the data size:
-
-[%header,cols="1,1,1"]
+[%header,cols="1,1,1,1"]
 |===
 |Size
 |Name
 |Symbol
+|Example
 
 |64 bits
 |Quadword
 |`q`
+|`movq`
 
 |32 bits
 |Long
 |`l`
+|`addl`
 
 |16 bits
 |Word
 |`w`
+|`andw`
 
 |8 bits
 |Byte
 |`b`
+|`orb`
 |===
 
-++++
-{% highlight gas %}
-movq %rbx, %rax
-movb $8, %al
-{% endhighlight %}
-++++
+[WARNING]
+====
+You **can use** a instruction `without` the **data size prefix**, but it's not recommended.
+
+In this case, the assembler will consider the register's size to decode it.
+====
 
 === Core instructions
-For a quick reference, I'll list some of the most important instructions someone who's working with low level programming should know.
+There's a lot of instructions x86 provides us. Many of them are **restricted** by the kernel due to their functionality.
+
+However, there're a couple of them considered the "most used" by someone aiming **low level programming**.
 
 ==== MOV
-Used to **move data** from **somewhere** to **another place**.
+One of the most basics instructions. The idea is pretty simple.
+
+From a **source value**, moves it to a **destination**.
 
 ++++
 {% highlight gas %}
+# Fill our registers
+movq $50, %rbx
 movq $40, %rax
+
+# Moves the value in RAX to RBX
 movq %rax, %rbx
+
+# RAX = 40
+# RBX = 40
 {% endhighlight %}
 ++++
 
+[IMPORTANT]
+====
+The value in `RAX` is not exactly moved to `RBX`. It **remains** there.
+
+Yeah... It is a **copy**.
+====
+
 ==== ADD
-Used to **sum** a value from a **source** to a **destination**.
+For this one, taken **two values**, **combines** them and **store** the result.
+
+The **first value** passed will be the `source`. It's going to be summed.
+
+The **second value** is the `destination`. It's gonna receive the value of the first one to get the result number.
 
 ++++
 {% highlight gas %}
+# Fill the source and destination values
+movl $10, %esi
 movl $50, %edi
-addl $10, %edi
+
+# Sum the source's value to the destination's
+addl %esi, %edi
+
+# ESI = 10
+# EDI = 60
 {% endhighlight %}
 ++++
 

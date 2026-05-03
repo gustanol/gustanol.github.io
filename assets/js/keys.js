@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 	/* The elements to be modified */
-	const content = document.querySelector(".content");
+	const content = document.querySelector(".main-content");
 	const headings = Array.from(content.querySelectorAll("h2, h3, h4"));
 	const search = document.getElementById("search-input");
 

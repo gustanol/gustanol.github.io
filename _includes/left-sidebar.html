@@ -1,15 +1,104 @@
-<aside class="sidebar">
-	<h1>{{ site.title }}</h1>
-	<p>{{ page.description }}</p>
+<style>
+#left-sidebar {
+	z-index: 50;
+	border-right: var(--border);
+}
+
+#left-sidebar > a:first-child {
+	color: inherit;
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.external {
+	font-size: 0.85rem;
+	color: var(--muted);
+	border-top: var(--border);
+	padding-top: 1rem;
+}
+
+.nav > a, .external > a {
+	font-size: 0.95rem;
+	height: 2rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.nav svg, .external svg {
+	height: 100%;
+	width: 1em;
+}
+</style>
+
+<aside class="sidebar" id="left-sidebar">
+	<a href="{{ site.url }}">
+		<h1>{{ site.title }}</h1>
+	</a>
+
+	<p>
+		{% if page.url == "/" %}
+			{{ site.description }}
+		{% else %}
+			{{ page.description }}
+		{% endif %}
+	</p>
 
 	<nav class="nav">
-		<a href="/">Home</a>
-		<a href="/about">About</a>
-		<a href="/articles">Articles</a>
-		<a href="/projects">Projects</a>
+		<a href="/">
+			<svg class="icon">
+				<use href="#icon-home"></use>
+			</svg>
+			Home
+		</a>
+
+		<a href="/about">
+			<svg class="icon">
+				<use href="#icon-user"></use>
+			</svg>
+			About
+		</a>
+
+		<a href="/articles">
+			<svg class="icon">
+				<use href="#icon-doc"></use>
+			</svg>
+			Articles
+		</a>
+		
+		<a href="/projects">
+			<svg class="icon">
+				<use href="#icon-box"></use>
+			</svg>
+			Projects
+		</a>
 	</nav>
 
 	<div class="external">
-	 	<a href="{{ site.github_url }}/{{ site.username }}">GitHub</a>
+	 	<a href="{{ site.github_url }}/{{ site.username }}">
+			<svg class="icon">
+				<use href="#icon-github"></use>
+			</svg>
+			GitHub
+		</a>
+
+	 	<a href="{{ site.linkedin_url }}/{{ site.username }}">
+			<svg class="icon">
+				<use href="#icon-linkedin"></use>
+			</svg>
+			LinkedIn
+		</a>
+
+	 	<a href="mailto:{{ site.email }}">
+			<svg class="icon">
+				<use href="#icon-email"></use>
+			</svg>
+			Email
+		</a>
 	</div>
 </aside>
