@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		/* Anchor it */
 		const a = document.createElement("a");
 		a.href = `#${heading.id}`;
-		a.textContent = heading.textContent;
+		a.textContent = '  ' + heading.textContent;
 
 		/* Add them to its parents */
 		li.appendChild(a);

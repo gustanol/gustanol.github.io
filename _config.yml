@@ -37,7 +37,7 @@ plugins:
 
 asciidoc:
   attributes:
-    - sectnums=false
+    - sectnums!
     - idprefix=
     - idseparator=-
     - author=Gustavo S. Aleixos

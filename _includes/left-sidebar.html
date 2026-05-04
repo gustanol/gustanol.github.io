@@ -1,6 +1,6 @@
 <style>
 #left-sidebar {
-	z-index: 50;
+	z-index: 100;
 	border-right: var(--border);
 }
 
@@ -9,20 +9,15 @@
 }
 
 .nav {
+	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	margin-bottom: 1rem;
+	overflow-y: auto;
 }
 
-.external {
-	font-size: 0.85rem;
-	color: var(--muted);
-	border-top: var(--border);
-	padding-top: 1rem;
-}
-
-.nav > a, .external > a {
+.nav > a {
 	font-size: 0.95rem;
 	height: 2rem;
 	display: flex;
@@ -30,9 +25,15 @@
 	align-items: center;
 }
 
-.nav svg, .external svg {
-	height: 100%;
+.nav svg {
 	width: 1em;
+	margin-right: 0.5rem;
+}
+
+#first-external {
+	border-top: var(--border);
+	height: 2.5rem;
+	padding-top: 0.5rem;
 }
 </style>
 
@@ -77,10 +78,8 @@
 			</svg>
 			Projects
 		</a>
-	</nav>
 
-	<div class="external">
-	 	<a href="{{ site.github_url }}/{{ site.username }}">
+	 	<a href="{{ site.github_url }}/{{ site.username }}" id="first-external">
 			<svg class="icon">
 				<use href="#icon-github"></use>
 			</svg>
@@ -100,5 +99,5 @@
 			</svg>
 			Email
 		</a>
-	</div>
+	</nav>
 </aside>

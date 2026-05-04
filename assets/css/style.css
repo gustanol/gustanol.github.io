@@ -31,9 +31,10 @@ h2, h3, h4, p {
 }
 
 hr {
-	height: 0.1rem;
+	height: 0.2rem;
 	width: 100%;
-	background: blue;
+	border: none;
+	background: #22252b;
 }
 
 a {
@@ -47,16 +48,28 @@ a:hover {
 
 table {
 	width: 100%;
-	border-collapse: collapse;
+	border-collapse: separate; 
+	border-spacing: 0; 
 	margin: 1.5rem 0;
 	font-size: 0.95rem;
-	overflow-x: auto;
+	border: var(--border);
+	border-radius: 1rem;
+	overflow: hidden; 
 }
 
 th, td {
-	border: var(--border);
+	border-bottom: var(--border);
+	border-right: var(--border);
 	padding: 0.5rem 0.75rem;
 	text-align: left;
+}
+
+th:last-child, td:last-child {
+	border-right: none;
+}
+
+tr:last-child td {
+	border-bottom: none;
 }
 
 th {
@@ -82,18 +95,20 @@ tr:nth-child(odd) {
 	padding-top: 10vh;
 	z-index: 20;
 }
+
 .search-overlay.hidden {
 	display: none;
 }
 
 .search-box {
-	width: 40rem;
-	max-height: 60vh;
+	width: 80%;
+	max-height: 70%;
 	overflow-y: auto;
 	background: #0b0d10;
 	border: var(--border);
 	border-radius: 1rem;
 	padding: 1rem;
+	padding-top: 0;
 }
 
 .search-box > span {
@@ -101,50 +116,70 @@ tr:nth-child(odd) {
 	display: flex;
 	justify-content: center;
 	font-weight: bold;
-	padding-bottom: 0.5rem;
+	padding: 0.5rem 0;
 	border-bottom: var(--border);
+	top: 0;
+	position: sticky;
+	background: inherit;
 }
 
-.search-box ul {
+.listing {
 	list-style: none;
 }
 
-.search-box li {
+.listing a {
+	color: inherit;
+}
+
+.listing > li {
 	padding: 0.5rem;
 	border-bottom: var(--border);
-	text-overflow: clip;
-	white-space: nowrap;
-  	overflow: hidden;
-}
-
-.search-box li:last-child {
-	border-bottom: none;
-}
-
-.search-box li > a {
-	height: 4rem;
 	display: flex;
-	color: var(--fg);
 	justify-content: flex-start;
 }
 
-.search-box li > a:hover {
+.listing > li > .no-results {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	padding-top: 1rem;
+}
+
+.listing > li:last-child {
+	border-bottom: none;
+}
+
+.listing > li > a {
+	height: auto;
+	display: flex;
+	color: var(--fg);
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.listing > li > a:hover {
 	text-decoration: none;
 }
 
-.search-box li > a > div {
+.listing > li .content {
 	padding-left: 1rem;
 	border-left: var(--border);
 }
 
-.search-box li > a > div > div {
+.listing-description, .listing-tag {
 	font-size: 0.8rem;
 	color: var(--muted);
 }
 
-.search-box li > a > img {
-	width: auto;
-	height: 100%;
+.listing-tag {
+	font-weight: bold;
+}
+
+.listing > li img {
+	width: 3rem;
+	height: 3rem;
 	border-radius: 1rem;
 	margin-right: 1rem;
 }

@@ -5,7 +5,9 @@
 	position: sticky;
 	top: 0;
 	background: var(--bg);
+	color: var(--fg);
 	width: 100%;
+	height: 3.7rem;
 	border-bottom: var(--border);
 	display: flex;
 	justify-content: space-evenly;
@@ -26,21 +28,33 @@
 	border: var(--border);
 	border-radius: 1rem;
 	color: var(--fg);
-	flex-basis: stretch;
+	flex-basis: 60%;
+}
+
+.header > svg {
+	width: 2rem;
+	height: 100%;
 }
 </style>
 
 <header class="header">
-	<button id="menu-toggle" class="hamburger-toggle">
-		☰
-	</button>
+	<svg id="menu-toggle" class="icon hamburger-toggle">
+		<use href="#icon-menu">
+	</svg>
 
 	<a href="">{{ page.short_title }}</a>
 
 	<!-- Search label -->
 	<input id="search-input" class="search" placeholder="Search..." />
 
-	<button id="toc-toggle" class="hamburger-toggle">
-		≡
-	</button>
+	<svg id="toc-toggle" class="icon hamburger-toggle">
+		<use href="#icon-toc">
+	</svg>
 </header>
+
+<div id="search-overlay" class="search-overlay hidden">
+	<div class="search-box">
+		<span>Results found</span>
+		<ul id="search-results"></ul>
+	</div>
+</div>

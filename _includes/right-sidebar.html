@@ -48,9 +48,11 @@
 .toc p {
 	top: 0;
 	position: sticky;
-	background: var(--bg);
+	background: inherit;
 	z-index: 10;
 	width: 100%;
+	padding-bottom: 0.5rem;
+	margin: 0;
 }
 
 .toc a.active {
@@ -58,17 +60,21 @@
   	font-weight: bold;
 }
 
-.toc h2 {
-	font-size: 0.9rem;
-	margin-bottom: 0.5rem;
+/* H2 */
+.toc li.level-h2 {
+  padding-left: 0;
 }
 
-.toc h3 {
-	font-size: 0.8rem;
+/* H3 */
+.toc li.level-h3 {
+  padding-left: 1rem;
+  font-size: 0.92em;
 }
 
-.toc h4 {
-	font-size: 0.7rem;
+/* H4 */
+.toc li.level-h4 {
+  padding-left: 2rem;
+  font-size: 0.88em;
 }
 
 .toc ul {
@@ -77,6 +83,12 @@
 
 .toc li {
 	margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+	.toc p {
+		background: rgba(0,0,0,0.9);
+	}
 }
 </style>
 

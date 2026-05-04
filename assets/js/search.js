@@ -30,7 +30,6 @@ input.addEventListener('input', () => {
 	openSearch();
 
 	html.style.overflowY = 'hidden';
-
 	const query = input.value.toLowerCase().trim();
 
 	results.innerHTML = '';
@@ -59,23 +58,36 @@ input.addEventListener('input', () => {
 		);
 	});
 
-	/* For each match, treat it */
-	matches.forEach(match => {
+	if (matches.length == 0) {
 		const li = document.createElement('li');
-
 		li.innerHTML = `
-			<a href="${match.url}">
-			<img src="${match.icon}">
-			<div>
-				<strong>${match.title}</strong><br/>
-				<div>${match.description}</div>
-				<div>${match.tags?.join(', ') || ''}</div>
-			</div>
-			</a>
+			<span class="no-results">Couldn\'t found anything with: ${query}</span>
 		`;
-
 		results.appendChild(li);
-	});
+	} else {
+
+		/* For each match, treat it */
+		matches.forEach(match => {
+			const li = document.createElement('li');
+			results.classList.add("listing");
+			const tags_content = (match.tags == '') ? "No tags" : match.tags?.join(', ') || '';
+
+			li.innerHTML = `
+				<a href="${match.url}">
+					<img src="${match.icon}">
+					<div class="content">
+						<strong>${match.title}</strong><br/>
+						<div class="listing-tag">
+							${tags_content}
+						</div>
+						<div class="listing-description">${match.description}</div>
+					</div>
+				</a>
+			`;
+
+			results.appendChild(li);
+		});
+	}
 });
 
 document.addEventListener('keydown', (e) => {

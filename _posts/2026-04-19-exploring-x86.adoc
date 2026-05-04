@@ -9,7 +9,6 @@ description: "Exploring the main concepts behind the x86 architecture in my pers
 ---
 
 :page-liquid:
-:sectnums: false
 
 '''
 

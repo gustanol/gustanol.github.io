@@ -6,9 +6,9 @@
 	<link rel="icon" type="image/x-icon" href="/assets/icons/logo.ico">
 
 	{% if page.url == "/" %}
-	<title>{{ site.title }}</title>
+		<title>{{ site.title }}</title>
 	{% else %}
-	<title>{{ page.title }} | {{ site.title }}</title>
+		<title>{{ page.title }} | {{ site.title }}</title>
 	{% endif %}
 
 	<link rel="stylesheet" href="/assets/css/style.css" />
@@ -26,13 +26,6 @@
 
 	<main class="main">
 		{% include header.html %}
-
-		<div id="search-overlay" class="search-overlay hidden">
-			<div class="search-box">
-				<span>Results found</span>
-				<ul id="search-results"></ul>
-			</div>
-		</div>
 
 		<article class="main-content">
 			{{ content }}
